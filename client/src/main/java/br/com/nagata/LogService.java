@@ -1,13 +1,14 @@
 package br.com.nagata;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
+import java.util.regex.Pattern;
 
-
-public class ConsumerService {
+public class LogService {
     public static void main(String[] args) {
 
-        ConsumerService consumerService = new ConsumerService();
-        KafkaService service = new KafkaService(ConsumerService.class.getSimpleName(), "ELASTIC_TOPIC", consumerService::parse);
+        LogService logService = new LogService();
+        KafkaService service = new KafkaService(LogService.class.getSimpleName(), Pattern.compile(".*TOPIC"), logService::parse);
+        service.run();
     }
 
     private void parse(ConsumerRecord<String, String> record){
@@ -15,17 +16,11 @@ public class ConsumerService {
 
         System.out.println("Key: " + record.key());
         System.out.println("Value: " + record.value());
+        System.out.println("Topico: " + record.topic());
         System.out.println("Partition: " + record.partition());
         System.out.println("Offset: " + record.offset());
         System.out.println("" + record);
 
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
         System.out.println("Processed");
     }
-
 }

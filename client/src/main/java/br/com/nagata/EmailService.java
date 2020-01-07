@@ -2,12 +2,14 @@ package br.com.nagata;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 
-
-public class ConsumerService {
+public class EmailService {
     public static void main(String[] args) {
+        EmailService emailService =  new EmailService();
 
-        ConsumerService consumerService = new ConsumerService();
-        KafkaService service = new KafkaService(ConsumerService.class.getSimpleName(), "ELASTIC_TOPIC", consumerService::parse);
+        try(KafkaService service = new KafkaService(EmailService.class.getSimpleName(), "EMAIL_TOPIC", emailService::parse))
+        {
+            service.run();
+        }
     }
 
     private void parse(ConsumerRecord<String, String> record){
