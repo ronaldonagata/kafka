@@ -1,0 +1,3 @@
+## Repositório com as imagens docker do kafka e zookeeper, dentro da pasta exemples contem diversos templates singl, cluster, etc...
+- git clone https://github.com/confluentinc/cp-docker-images
+- Eu frequentemente utilizo o single node pois ja contém um compose que sucinto e pronto pra testes semm muitas configurações
